@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Kicks Avenue | Premium Sneakers Pakistan</title>
+    <!-- Font Awesome (icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #f8f5f0;
+            color: #1e2a2e;
+        }
+
+        :root {
+            --pak-green: #105e3e;
+            --pak-green-light: #2c7a4b;
+            --pak-cream: #fff8ed;
+            --pak-gold: #d4a373;
+            --dark-text: #1f2a2e;
+            --border-light: #e2dcd3;
+        }
+
+        .top-bar {
+            background: var(--pak-green);
+            color: white;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .logo h2 {
+            color: var(--pak-green);
+            font-weight: 800;
+            font-size: 1.8rem;
+        }
+        .logo span {
+            color: var(--pak-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links li a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2d3e3b;
+            transition: 0.2s;
+        }
+        .nav-links li a:hover, .nav-links .active {
+            color: var(--pak-green);
+            border-bottom: 2px solid var(--pak-green);
+            padding-bottom: 4px;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            color: var(--pak-green);
+            cursor: pointer;
+        }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background: #e07a5f;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .page {
+            display: none;
+            padding: 2rem 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .active-page {
+            display: block;
+        }
+
+        .hero {
+            background: linear-gradient(100deg, #eef2e6 0%, #fff3e4 100%);
+            border-radius: 32px;
+            padding: 2rem 3rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hero-text h1 {
+            font-size: 2.8rem;
+            color: var(--pak-green);
+        }
+        .badge-pk {
+            background: var(--pak-green);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem 0;
+            border-left: 6px solid var(--pak-green);
+            padding-left: 16px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            border: 1px solid var(--border-light);
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.08);
+        }
+        .product-img {
+            height: 220px;
+            background: #f1ede7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover .product-img img {
+            transform: scale(1.03);
+        }
+        .product-info {
+            padding: 1.2rem;
+        }
+        .product-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .product-category {
+            font-size: 0.75rem;
+            color: #7f8c8d;
+            margin: 6px 0;
+            text-transform: uppercase;
+        }
+        .product-price {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--pak-green);
+            margin: 8px 0;
+        }
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        button {
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 40px;
+            transition: 0.2s;
+        }
+        .btn-add {
+            background: #f0ede8;
+            color: var(--pak-green);
+            padding: 8px 16px;
+            flex: 1;
+        }
+        .btn-add:hover {
+            background: var(--pak-green);
+            color: white;
+        }
+        .btn-buy {
+            background: var(--pak-green);
+            color: white;
+            padding: 8px 16px;
+            flex: 1;
+        }
+        .btn-buy:hover {
+            background: #0a462f;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: 0.35s ease;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .cart-sidebar.open {
+            right: 0;
+        }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .cart-items {
+            flex: 1;
+            margin: 1.5rem 0;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #f0e7dc;
+            padding: 12px 0;
+        }
+        .cart-total {
+            font-weight: 800;
+            font-size: 1.3rem;
+            border-top: 2px solid #eee;
+            padding-top: 12px;
+        }
+        .checkout-btn {
+            background: var(--pak-green);
+            padding: 14px;
+            font-size: 1rem;
+            width: 100%;
+            margin-top: 15px;
+            color: white;
+        }
+        .close-cart {
+            background: none;
+            font-size: 1.5rem;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
+            display: none;
+        }
+        .overlay.show {
+            display: block;
+        }
+
+        footer {
+            background: #1e2a2e;
+            color: #cddde0;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .trend-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        .trend-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            flex: 1 1 260px;
+            text-align: center;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid var(--border-light);
+            border-radius: 30px;
+        }
+        .submit-btn {
+            background: var(--pak-green);
+            color: white;
+            padding: 12px 24px;
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .page {
+                padding: 1rem;
+            }
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <i class="fas fa-truck"></i> Free Shipping across Pakistan | Pay via Easypaisa & JazzCash | 100% Original Sneakers
+</div>
+
+<div class="navbar">
+    <div class="logo">
+        <h2>Kicks<span>Avenue</span> <i class="fas fa-shoe-prints"></i></h2>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#" data-page="home" class="nav-link active">Home</a></li>
+        <li><a href="#" data-page="trends" class="nav-link">Trends</a></li>
+        <li><a href="#" data-page="about" class="nav-link">About Us</a></li>
+        <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+    </div>
+</div>
+
+<!-- HOME PAGE -->
+<div id="home-page" class="page active-page">
+    <div class="hero">
+        <div class="hero-text">
+            <span class="badge-pk"><i class="fas fa-flag-checkered"></i> Made for Pakistan</span>
+            <h1>Classic · Fancy · Gen-Z <br>Kicks Evolution</h1>
+            <p>From vintage Air Max to bold designer fusions, we bring you the dopest sneaker culture in PKR. Shop trending shoes loved by GenZ & collectors.</p>
+        </div>
+        <div style="font-size: 5rem;">👟✨</div>
+    </div>
+    <div class="section-title"><i class="fas fa-fire"></i> 🔥 Most Wanted Sneakers</div>
+    <div id="products-container" class="products-grid"></div>
+</div>
+
+<!-- TRENDS PAGE -->
+<div id="trends-page" class="page">
+    <div class="section-title"><i class="fas fa-chart-line"></i> 🧬 GenZ Sneaker Trends - Pakistan</div>
+    <div class="trend-grid">
+        <div class="trend-card"><i class="fas fa-palette" style="font-size: 2.5rem; color:#105e3e;"></i><h3>Upcycled Classics</h3><p>Vintage reworks & patchwork dunks taking over Lahore & Karachi streets.</p></div>
+        <div class="trend-card"><i class="fas fa-globe" style="font-size: 2.5rem; color:#d4a373;"></i><h3>Chunky "Dad Shoes"</h3><p>Bold soles & retro runners — statement pieces for GenZ fits.</p></div>
+        <div class="trend-card"><i class="fas fa-crown" style="font-size: 2.5rem; color:#c68a3e;"></i><h3>Fancy Embellished</h3><p>Crystal accents, metallic leather, and luxury streetwear hybrids.</p></div>
+        <div class="trend-card"><i class="fas fa-rupee-sign" style="font-size: 2.5rem;"></i><h3>PKR Exclusives</h3><p>Local limited drops, customized "Truck Art" edition sneakers.</p></div>
+    </div>
+    <div class="section-title">✨ Trend Alert: Most Hyped this Month</div>
+    <div id="trend-products" class="products-grid"></div>
+</div>
+
+<!-- ABOUT US PAGE -->
+<div id="about-page" class="page">
+    <div class="section-title">🇵🇰 About Kicks Avenue</div>
+    <div style="background: white; border-radius: 28px; padding: 2rem; line-height: 1.6;">
+        <p>Welcome to <strong>Kicks Avenue</strong> – your premium sneaker destination, rooted in Pakistan. We bring together timeless classics, extravagant fancy designs, and the freshest GenZ silhouettes under one roof. From retro Air Jordan vibes to avant-garde platform sneakers, we curate styles that speak to the young, bold, and expressive.</p>
+        <br>
+        <p>Our mission? To empower sneakerheads across Islamabad, Karachi, Lahore, and beyond with authentic, high-quality footwear at transparent PKR pricing. We partner with local artisans for limited “Pakistan Heritage” editions. Every pair tells a story — of craft, comfort, and cool.</p>
+        <br>
+        <p><i class="fas fa-heart" style="color:#e07a5f;"></i> #SupportLocal #SneakerCulturePK</p>
+    </div>
+    <div style="margin-top: 2rem; display: flex; gap:20px; flex-wrap:wrap;">
+        <div style="background:#e9f0e6; border-radius:28px; padding:1.5rem; flex:1"><i class="fas fa-shipping-fast fa-2x"></i><h3>Pan Pakistan Delivery</h3><p>Fast shipping with COD & online payments.</p></div>
+        <div style="background:#fff0e3; border-radius:28px; padding:1.5rem; flex:1"><i class="fas fa-exchange-alt fa-2x"></i><h3>Size Exchange</h3><p>Easy size swap within 14 days.</p></div>
+    </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div id="contact-page" class="page">
+    <div class="section-title">📞 Get in touch</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+        <div style="flex:1; background:white; border-radius: 28px; padding: 2rem;">
+            <h3>Visit our Lahore Concept Store</h3>
+            <p><i class="fas fa-map-marker-alt"></i> 14-G, MM Alam Road, Gulberg III, Lahore</p>
+            <p><i class="fas fa-phone-alt"></i> +92 321 111 2345</p>
+            <p><i class="fas fa-envelope"></i> care@kicksavenue.pk</p>
+        </div>
+        <div style="flex:1.5; background:white; border-radius: 28px; padding: 2rem;">
+            <form class="contact-form" id="contactForm">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <textarea rows="3" placeholder="Your message..."></textarea>
+                <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                <p id="formFeedback" style="margin-top: 8px; font-size:0.8rem;"></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Sidebar -->
+<div class="overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <span>Your Cart <i class="fas fa-shopping-bag"></i></span>
+        <button class="close-cart" id="closeCartBtn">&times;</button>
+    </div>
+    <div id="cartItemsList" class="cart-items"></div>
+    <div class="cart-total" id="cartTotalPrice">Total: PKR 0</div>
+    <button class="checkout-btn" id="checkoutBtn"><i class="fas fa-credit-card"></i> Buy Now (Proceed)</button>
+</div>
+
+<footer>
+    <p>© 2025 Kicks Avenue — Pakistan's #1 Sneaker Culture Hub | Prices in PKR | Free Shipping Over PKR 8000</p>
+</footer>
+
+<script>
+    // Product list with image URLs (realistic sneaker placeholder images)
+    const products = [
+        { id: 1, name: "Nike Air Max 90 'Classic'", category: "Classic", price: 18990, img: "https://fakeimg.pl/400x300/105e3e/ffffff?text=Air+Max+90&font=lato" },
+        { id: 2, name: "Adidas Samba OG", category: "Classic", price: 15990, img: "https://picsum.photos/id/20/400/300" },
+        { id: 3, name: "Puma Suede X Bad Boys", category: "Classic", price: 12490, img: "https://picsum.photos/id/42/400/300" },
+        { id: 4, name: "Fancy Crystal Heeled Sneakers", category: "Fancy", price: 24990, img: "https://picsum.photos/id/26/400/300" },
+        { id: 5, name: "Metallic Gold Platform", category: "Fancy", price: 21990, img: "https://picsum.photos/id/30/400/300" },
+        { id: 6, name: "Embroidered Pearl High-Tops", category: "Fancy", price: 27990, img: "https://picsum.photos/id/36/400/300" },
+        { id: 7, name: "Yeezy 500 'Bone White'", category: "GenZ", price: 35990, img: "https://picsum.photos/id/1/400/300" },
+        { id: 8, name: "New Balance 530 'Metallic'", category: "GenZ", price: 19990, img: "https://picsum.photos/id/52/400/300" },
+        { id: 9, name: "ASICS Gel-Kayano 14", category: "GenZ", price: 22990, img: "https://picsum.photos/id/82/400/300" },
+        { id: 10, name: "Jordan 1 Mid SE Craft", category: "Classic", price: 28990, img: "https://picsum.photos/id/23/400/300" },
+        { id: 11, name: "Nike Dunk Low 'Panda'", category: "GenZ", price: 23990, img: "https://picsum.photos/id/96/400/300" },
+        { id: 12, name: "Luxury Rhinestone Stilettos Sneakers", category: "Fancy", price: 31990, img: "https://picsum.photos/id/29/400/300" }
+    ];
+
+    let cart = [];
+
+    function saveCart() {
+        localStorage.setItem("sneakerCart", JSON.stringify(cart));
+        updateCartUI();
+    }
+
+    function loadCart() {
+        const stored = localStorage.getItem("sneakerCart");
+        cart = stored ? JSON.parse(stored) : [];
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        const cartCountSpan = document.getElementById("cartCount");
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountSpan.innerText = totalItems;
+
+        const cartContainer = document.getElementById("cartItemsList");
+        if (cart.length === 0) {
+            cartContainer.innerHTML = `<p style="text-align:center; color:gray;">🛒 Your cart is empty. Add some fresh kicks!</p>`;
+            document.getElementById("cartTotalPrice").innerText = `Total: PKR 0`;
+            return;
+        }
+        let html = "";
+        let total = 0;
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            html += `
+                <div class="cart-item">
+                    <div><strong>${item.name}</strong><br>PKR ${item.price.toLocaleString()} x ${item.quantity}</div>
+                    <div>
+                        <button class="cart-qty-btn" data-id="${item.id}" data-change="-1">-</button>
+                        <span style="margin:0 6px;">${item.quantity}</span>
+                        <button class="cart-qty-btn" data-id="${item.id}" data-change="1">+</button>
+                        <button class="cart-remove" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            `;
+        });
+        cartContainer.innerHTML = html;
+        document.getElementById("cartTotalPrice").innerHTML = `Total: PKR ${total.toLocaleString()}`;
+
+        document.querySelectorAll('.cart-qty-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.dataset.id);
+                const change = parseInt(btn.dataset.change);
+                updateQuantity(id, change);
+            });
+        });
+        document.querySelectorAll('.cart-remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.dataset.id);
+                removeFromCart(id);
+            });
+        });
+    }
+
+    function updateQuantity(productId, delta) {
+        const index = cart.findIndex(i => i.id === productId);
+        if (index !== -1) {
+            const newQty = cart[index].quantity + delta;
+            if (newQty <= 0) cart.splice(index, 1);
+            else cart[index].quantity = newQty;
+            saveCart();
+        }
+    }
+
+    function removeFromCart(productId) {
+        cart = cart.filter(i => i.id !== productId);
+        saveCart();
+    }
+
+    function addToCart(product) {
+        const existing = cart.find(i => i.id === product.id);
+        if (existing) existing.quantity += 1;
+        else cart.push({ id: product.id, name: product.name, price: product.price, quantity: 1 });
+        saveCart();
+        showCartSidebar();
+    }
+
+    function buyNow(product) {
+        cart = [];
+        addToCart(product);
+        showCartSidebar();
+        alert("Item added & cart opened! Click 'Buy Now (Proceed)' to place order (demo).");
+    }
+
+    function renderProducts(containerId, filterFn = null) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        let filtered = filterFn ? products.filter(filterFn) : [...products];
+        container.innerHTML = filtered.map(prod => `
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="${prod.img}" alt="${prod.name}">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">${prod.name}</div>
+                    <div class="product-category">${prod.category}</div>
+                    <div class="product-price">₨ ${prod.price.toLocaleString()} <span class="price-pkr">PKR</span></div>
+                    <div class="product-actions">
+                        <button class="btn-add" data-id="${prod.id}"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        <button class="btn-buy" data-id="${prod.id}"><i class="fas fa-bolt"></i> Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        document.querySelectorAll(`#${containerId} .btn-add`).forEach(btn => {
+            const id = parseInt(btn.dataset.id);
+            btn.addEventListener('click', () => addToCart(products.find(p => p.id === id)));
+        });
+        document.querySelectorAll(`#${containerId} .btn-buy`).forEach(btn => {
+            const id = parseInt(btn.dataset.id);
+            btn.addEventListener('click', () => buyNow(products.find(p => p.id === id)));
+        });
+    }
+
+    function showCartSidebar() {
+        document.getElementById('cartSidebar').classList.add('open');
+        document.getElementById('cartOverlay').classList.add('show');
+    }
+    function closeCartSidebar() {
+        document.getElementById('cartSidebar').classList.remove('open');
+        document.getElementById('cartOverlay').classList.remove('show');
+    }
+
+    function switchPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById(`${pageId}-page`).classList.add('active-page');
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        const activeLink = Array.from(document.querySelectorAll('.nav-link')).find(l => l.dataset.page === pageId);
+        if (activeLink) activeLink.classList.add('active');
+
+        if (pageId === 'home') renderProducts('products-container');
+        else if (pageId === 'trends') renderProducts('trend-products', (p) => p.category === 'GenZ' || p.category === 'Fancy');
+    }
+
+    document.getElementById('cartIcon').addEventListener('click', showCartSidebar);
+    document.getElementById('closeCartBtn').addEventListener('click', closeCartSidebar);
+    document.getElementById('cartOverlay').addEventListener('click', closeCartSidebar);
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+        if (cart.length === 0) alert("Your cart is empty. Add some sneakers first!");
+        else {
+            alert(`✅ Order placed (demo)! Total PKR ${cart.reduce((sum,i)=>sum + i.price*i.quantity,0).toLocaleString()}. Our team will contact on WhatsApp. 🇵🇰`);
+            cart = [];
+            saveCart();
+            closeCartSidebar();
+        }
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchPage(link.dataset.page);
+        });
+    });
+
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('formFeedback').innerHTML = '<span style="color:green;">✨ Jazakallah! Team will reach out soon 🇵🇰</span>';
+        e.target.reset();
+    });
+
+    loadCart();
+    renderProducts('products-container');
+    switchPage('home');
+</script>
+</body>
+</html>
